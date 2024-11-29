@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Настройка шрифта и цветов
+font="JetBrains Mono"  # Минималистичный моноширинный шрифт
+bg_color="#1d1f2110"                                # Фон панели (тёмный)
+fg_color="#c5c8c6"                                # Основной цвет текста (серый)
+highlight_color="#013220"                         # Цвет выделения (например, для активного рабочего пространства)
+
+# Список рабочих пространств
+workspaces=("[1]" "[2]" "[3]" "[4]" "[5]" "[6]" "[7]" "[8]" "[9]")
+
+# Функция для получения уровня громкости (PipeWire)
+get_volume() {
+    # Используем pactl для получения уровня громкости и состояния
+    volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
+    muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
+    
+    if [[ "$muted" == "yes" ]]; then
+        echo "MUTED"
+    else
+        echo "$volume"
+    fi
+}
+
+
+# Функция для получения текущего времени в формате полного дня (год-месяц-день)
+get_datetime() {
+    date "+%Y-%m-%d %H:%M:%S"
+}
+
+# Функция для получения текущего курса биткойна через API
+get_bitcoin_price() {
+    bitcoin_price=$(curl -s https://api.coindesk.com/v1/bpi/currentprice/BTC.json | jq -r '.bpi.USD.rate')
+    echo "$bitcoin_price"
+}
+
+# Функция для получения текущей раскладки клавиатуры
+get_keyboard_layout() {
+    layout=$(setxkbmap -query | grep layout | awk '{print $2}')
+    if [[ "$layout" == "us" ]]; then
+        echo "EN"  # Английская раскладка
+    elif [[ "$layout" == "ru" ]]; then
+        echo "RU"  # Русская раскладка
+    else
+        echo "$layout"  # Любая другая раскладка
+    fi
+}
+
+# Запуск основного цикла
+while true; do
+    # Определяем активный рабочий стол
+    active_workspace=$(xdotool get_desktop)
+
+    # Формируем строку для отображения рабочих пространств
+    workspace_output=""
+    for i in "${!workspaces[@]}"; do
+        if [ "$i" -eq "$active_workspace" ]; then
+            workspace_output+="%{F$highlight_color}${workspaces[i]}%{F-} "  # Активный выделяется
+        else
+            workspace_output+="${workspaces[i]} "
+        fi
+    done
+
+    # Получаем статус звука, дату/время, курс биткойна, раскладку клавиатуры
+    volume=$(get_volume)
+    datetime=$(get_datetime)
+    bitcoin=$(get_bitcoin_price)
+    keyboard_layout=$(get_keyboard_layout)
+
+    # Формирование минималистичного вывода
+    echo -e "%{l}$workspace_output%{c}$datetime%{r}$keyboard_layout | $bitcoin | $volume"
+    sleep 1  # Ожидание 1 секунду перед обновлением
+done | lemonbar -g "1920x20+0+0" -B "$bg_color" -F "$fg_color" -f "$font"

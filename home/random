@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Directory where images will be stored
+IMAGE_DIR="$HOME/Pictures/random_wallpapers"
+mkdir -p "$IMAGE_DIR"
+
+# Random image source (e.g., Lorem Picsum)
+IMAGE_URL="https://picsum.photos/1920/1080"
+
+# Download a random image
+IMAGE_PATH="$IMAGE_DIR/$(date +%Y-%m-%d_%H-%M-%S).jpg"
+wget -q -O "$IMAGE_PATH" "$IMAGE_URL"
+
+# Set the downloaded image as the wallpaper using Nitrogen
+#nitrogen --restore
+nitrogen --set-zoom-fill "$IMAGE_PATH"
+
+echo "New wallpaper set from: $IMAGE_PATH"
+

@@ -1,0 +1,38 @@
+
+[font]
+size = 13.0
+
+[font.bold]
+family = "JetBrains Mono"
+style = "Bold"
+
+[font.italic]
+family = "JetBrains Mono"
+style = "Italic"
+
+[font.normal]
+family = "JetBrains Mono"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Command"
+
+[window]
+dynamic_title = true
+opacity = 0.87
+padding.x = 10
+padding.y = 10 
+decorations = "Full"
+
+[window.dimensions]
+columns = 120
+lines = 35
+
+
