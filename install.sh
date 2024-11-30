@@ -28,17 +28,27 @@ copy_dir() {
 }
 
 copy_dir "$SOURCE_DIR/home" "$TARGET_HOME"
-
 copy_dir "$SOURCE_DIR/.config" "$TARGET_HOME/.config"
-
 copy_dir "$SOURCE_DIR/.themes" "$TARGET_HOME/.themes"
 
+# Обновление конфигурации rofi
 ROFI_CONFIG="$TARGET_HOME/.config/rofi/config.rasi"
 if [ -f "$ROFI_CONFIG" ]; then
   echo "Обновление пути в $ROFI_CONFIG..."
   sed -i "s|/home/f1la|$TARGET_HOME|g" "$ROFI_CONFIG"
 else
   echo "Файл $ROFI_CONFIG не найден. Пропуск."
+fi
+
+# Пересоздание симлинка current
+THEMES_DIR="$TARGET_HOME/.config/leftwm/themes"
+CURRENT_LINK="$THEMES_DIR/current"
+if [ -d "$THEMES_DIR/Ascent" ]; then
+  echo "Пересоздание симлинка current на Ascent..."
+  rm -f "$CURRENT_LINK"
+  ln -s "$THEMES_DIR/Ascent" "$CURRENT_LINK"
+else
+  echo "Папка Ascent не найдена, симлинк current не был пересоздан."
 fi
 
 echo "Установка завершена. Проверьте, все ли данные скопированы корректно."
