@@ -1,17 +1,13 @@
 #!/bin/bash
 
-# Настройка шрифта и цветов
 font="JetBrains Mono"  # Минималистичный моноширинный шрифт
 bg_color="#1d1f2110"    # Фон панели (тёмный)
 fg_color="#FFFFFF"      # Основной цвет текста (серый)
 highlight_color="#ff79c6" # Цвет выделения фона для активного рабочего пространства
 
-# Список рабочих пространств
 workspaces=("[web]" "[term]" "[code]" "[4]" "[5]" "[6]" "[7]" "[8]" "[9]")
 
-# Функция для получения уровня громкости (PipeWire)
 get_volume() {
-    # Используем pactl для получения уровня громкости и состояния
     volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
     muted=$(pactl get-sink-mute @DEFAULT_SINK@ | awk '{print $2}')
     
@@ -22,12 +18,10 @@ get_volume() {
     fi
 }
 
-# Функция для получения текущего времени в формате полного дня (год-месяц-день)
 get_datetime() {
     date "+%Y-%m-%d %H:%M:%S"
 }
 
-# Функция для получения текущего курса биткойна через API
 get_bitcoin_price() {
     bitcoin_price=$(curl -s https://api.coindesk.com/v1/bpi/currentprice/BTC.json | jq -r '.bpi.USD.rate')
     echo "$bitcoin_price"
