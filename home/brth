@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Установите ваше устройство экрана
+DISPLAY_DEVICE="HDMI-0"
+
+# Получить текущую яркость
+CURRENT_BRIGHTNESS=$(xrandr --verbose | grep -i brightness | head -n 1 | awk '{print $2}')
+
+# Проверяем, удалось ли получить яркость
+if [[ -z "$CURRENT_BRIGHTNESS" ]]; then
+    echo "Error: Unable to fetch current brightness. Check xrandr output."
+    exit 1
+fi
+
+# Преобразуем аргумент в действие и значение
+if [[ $1 =~ ^[+-][0-9]+%$ ]]; then
+    # Удаляем символ "%" и вычисляем изменение
+    CHANGE=$(echo $1 | sed 's/%//')
+    
+    # Рассчитываем новое значение яркости
+    NEW_BRIGHTNESS=$(awk -v curr="$CURRENT_BRIGHTNESS" -v chg="$CHANGE" 'BEGIN { print curr + (chg / 100) }')
+    
+    # Ограничиваем яркость в пределах 0.1 - 1.0
+    if (( $(awk -v val="$NEW_BRIGHTNESS" 'BEGIN { print (val < 0.1) ? 1 : 0 }') )); then
+        NEW_BRIGHTNESS=0.1
+    elif (( $(awk -v val="$NEW_BRIGHTNESS" 'BEGIN { print (val > 1.0) ? 1 : 0 }') )); then
+        NEW_BRIGHTNESS=1.0
+    fi
+    
+    # Устанавливаем новое значение яркости
+    xrandr --output $DISPLAY_DEVICE --brightness $NEW_BRIGHTNESS
+    echo "Brightness set to $NEW_BRIGHTNESS"
+else
+    echo "Usage: $0 [+N%|-N%]"
+    echo "Example: $0 +10% or $0 -10%"
+fi
+

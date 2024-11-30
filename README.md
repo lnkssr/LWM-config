@@ -64,6 +64,8 @@ These are the hotkeys defined in the configuration:
 - **`Mod + P`**: Launch `rofi`, the application launcher.
 - **`Print Screen`**: Capture a screenshot using `flameshot`.
 - **`Mod + T`**: Open `thunar`, the file manager.
+- **`Bod + F6`**: brightness +10%.
+- **`Mod + F5`**: brightness -10%. 
 
 ---
 
