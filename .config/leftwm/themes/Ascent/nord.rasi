@@ -8,25 +8,25 @@
 * {
     font:   "IBM Plex Mono 12";
 
-    nord0:     #2e3440;
-    nord1:     #3b4252;
-    nord2:     #434c5e;
-    nord3:     #4c566a;
+    nord0:     #282a36;
+    nord1:     #3c3f5b;
+    nord2:     #4d4f68;
+    nord3:     #6272a4;
 
-    nord4:     #d8dee9;
-    nord5:     #e5e9f0;
-    nord6:     #eceff4;
+    nord4:     #f8f8f2;
+    nord5:     #f1fa8c;
+    nord6:     #8be9fd;
 
-    nord7:     #8fbcbb;
-    nord8:     #88c0d0;
-    nord9:     #81a1c1;
-    nord10:    #5e81ac;
-    nord11:    #bf616a;
+    nord7:     #50fa7b;
+    nord8:     #ff79c6;
+    nord9:     #bd93f9;
+    nord10:    #ff5555;
+    nord11:    #ffb86c;
 
-    nord12:    #d08770;
-    nord13:    #ebcb8b;
-    nord14:    #a3be8c;
-    nord15:    #b48ead;
+    nord12:    #ff79c6;
+    nord13:    #ffb86c;
+    nord14:    #6272a4;
+    nord15:    #50fa7b;
 
     background-color:   transparent;
     text-color:         @nord4;

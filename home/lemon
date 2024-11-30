@@ -2,12 +2,12 @@
 
 # Настройка шрифта и цветов
 font="JetBrains Mono"  # Минималистичный моноширинный шрифт
-bg_color="#1d1f2110"                                # Фон панели (тёмный)
-fg_color="#c5c8c6"                                # Основной цвет текста (серый)
-highlight_color="#013220"                         # Цвет выделения (например, для активного рабочего пространства)
+bg_color="#1d1f2110"    # Фон панели (тёмный)
+fg_color="#FFFFFF"      # Основной цвет текста (серый)
+highlight_color="#ff79c6" # Цвет выделения фона для активного рабочего пространства
 
 # Список рабочих пространств
-workspaces=("[1]" "[2]" "[3]" "[4]" "[5]" "[6]" "[7]" "[8]" "[9]")
+workspaces=("[web]" "[term]" "[code]" "[4]" "[5]" "[6]" "[7]" "[8]" "[9]")
 
 # Функция для получения уровня громкости (PipeWire)
 get_volume() {
@@ -21,7 +21,6 @@ get_volume() {
         echo "$volume"
     fi
 }
-
 
 # Функция для получения текущего времени в формате полного дня (год-месяц-день)
 get_datetime() {
@@ -51,13 +50,15 @@ while true; do
     # Определяем активный рабочий стол
     active_workspace=$(xdotool get_desktop)
 
-    # Формируем строку для отображения рабочих пространств
+    # Формируем строку для отображения рабочих пространств с подсветкой фона
     workspace_output=""
     for i in "${!workspaces[@]}"; do
         if [ "$i" -eq "$active_workspace" ]; then
-            workspace_output+="%{F$highlight_color}${workspaces[i]}%{F-} "  # Активный выделяется
+            # Подсвечиваем только фон под активным рабочим пространством
+            workspace_output+="%{B$highlight_color}%{F$fg_color}${workspaces[i]}%{F-}%{B-} "  
         else
-            workspace_output+="${workspaces[i]} "
+            # Для неактивных рабочих пространств фон прозрачный (не задаём цвет фона)
+            workspace_output+="%{F$fg_color}${workspaces[i]} "
         fi
     done
 
