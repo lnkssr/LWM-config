@@ -1,11 +1,11 @@
 #!/bin/bash
 
 font="JetBrains Mono"  # Минималистичный моноширинный шрифт
-bg_color="#1d1f2110"    # Фон панели (тёмный)
-fg_color="#FFFFFF"      # Основной цвет текста (серый)
+bg_color="#000000CC"   # Фон панели (чёрный с 80% прозрачности)
+fg_color="#FFFFFF"     # Основной цвет текста (белый)
 highlight_color="#ff79c6" # Цвет выделения фона для активного рабочего пространства
 
-workspaces=("[web]" "[term]" "[code]" "[4]" "[5]" "[6]" "[7]" "[8]" "[9]")
+workspaces=("1" "2" "3" "4" "5" "6" "7" "8" "9")
 
 get_volume() {
     volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
@@ -27,15 +27,14 @@ get_bitcoin_price() {
     echo "$bitcoin_price"
 }
 
-# Функция для получения текущей раскладки клавиатуры
 get_keyboard_layout() {
     layout=$(setxkbmap -query | grep layout | awk '{print $2}')
     if [[ "$layout" == "us" ]]; then
-        echo "EN"  # Английская раскладка
+        echo "EN"
     elif [[ "$layout" == "ru" ]]; then
-        echo "RU"  # Русская раскладка
+        echo "RU"
     else
-        echo "$layout"  # Любая другая раскладка
+        echo "$layout"
     fi
 }
 
@@ -48,10 +47,8 @@ while true; do
     workspace_output=""
     for i in "${!workspaces[@]}"; do
         if [ "$i" -eq "$active_workspace" ]; then
-            # Подсвечиваем только фон под активным рабочим пространством
             workspace_output+="%{B$highlight_color}%{F$fg_color}${workspaces[i]}%{F-}%{B-} "  
         else
-            # Для неактивных рабочих пространств фон прозрачный (не задаём цвет фона)
             workspace_output+="%{F$fg_color}${workspaces[i]} "
         fi
     done
@@ -63,6 +60,6 @@ while true; do
     keyboard_layout=$(get_keyboard_layout)
 
     # Формирование минималистичного вывода
-    echo -e "%{l}$workspace_output%{c}$datetime%{r}$keyboard_layout | $bitcoin | $volume"
-    sleep 1  # Ожидание 1 секунду перед обновлением
+    echo -e "%{l} $workspace_output%{c}$datetime%{r}$keyboard_layout | $bitcoin | $volume "
+    sleep 0.2  # Ожидание 200 мс перед обновлением
 done | lemonbar -g "1920x20+0+0" -B "$bg_color" -F "$fg_color" -f "$font"
