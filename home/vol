@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [[ $1 == "up" ]]; then
+  pamixer --increase ${2:-5}
+elif [[ $1 == "down" ]]; then
+  pamixer --decrease ${2:-5}
+elif [[ $1 == "mute" ]]; then
+  pamixer --toggle-mute
+else
+  echo "Usage: $0 {up|down|mute} [value]"
+  exit 1
+fi
+
+# Отобразить текущий уровень громкости после изменения
+volume=$(pamixer --get-volume-human)
+echo "Current volume: $volume"
+
