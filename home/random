@@ -1,19 +1,25 @@
 #!/bin/bash
 
-# Directory where images will be stored
-IMAGE_DIR="$HOME/Pictures/random_wallpapers"
-mkdir -p "$IMAGE_DIR"
+# Папка с обоями
+WALLPAPER_DIR="/mnt/lwalpapers/"
 
-# Random image source (e.g., Lorem Picsum)
-IMAGE_URL="https://picsum.photos/1920/1080"
+# Проверяем, существует ли папка
+if [ ! -d "$WALLPAPER_DIR" ]; then
+  echo "Error: Папка с обоями ($WALLPAPER_DIR) не найдена!"
+  exit 1
+fi
 
-# Download a random image
-IMAGE_PATH="$IMAGE_DIR/$(date +%Y-%m-%d_%H-%M-%S).jpg"
-wget -q -O "$IMAGE_PATH" "$IMAGE_URL"
+# Выбираем случайный файл из папки
+RANDOM_WALLPAPER=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.jpeg" \) | shuf -n 1)
 
-# Set the downloaded image as the wallpaper using Nitrogen
-#nitrogen --restore
-nitrogen --set-zoom-fill "$IMAGE_PATH"
+# Проверяем, найден ли файл
+if [ -z "$RANDOM_WALLPAPER" ]; then
+  echo "Error: Не удалось найти файлы обоев в $WALLPAPER_DIR"
+  exit 1
+fi
 
-echo "New wallpaper set from: $IMAGE_PATH"
+# Устанавливаем обои с помощью Nitrogen
+nitrogen --set-zoom-fill "$RANDOM_WALLPAPER"
+
+echo "Установлены обои: $RANDOM_WALLPAPER"
 

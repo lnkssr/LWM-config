@@ -5,7 +5,7 @@ bg_color="#000000CC"   # Фон панели (чёрный с 80% прозрач
 fg_color="#FFFFFF"     # Основной цвет текста (белый)
 highlight_color="#ff79c6" # Цвет выделения фона для активного рабочего пространства
 
-workspaces=("1" "2" "3" "4" "5" "6" "7" "8" "9")
+workspaces=(" 1 " " 2 " " 3 " " 4 " " 5 " " 6 " " 7 " " 8 " " 9 ")
 
 get_volume() {
     volume=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '{print $5}')
@@ -28,14 +28,29 @@ get_bitcoin_price() {
 }
 
 get_keyboard_layout() {
-    layout=$(setxkbmap -query | grep layout | awk '{print $2}')
-    if [[ "$layout" == "us" ]]; then
-        echo "EN"
-    elif [[ "$layout" == "ru" ]]; then
-        echo "RU"
-    else
-        echo "$layout"
+    layout=$(xkb-switch 2>/dev/null)
+    if [[ $? -ne 0 || -z "$layout" ]]; then
+        echo "Unknown"  # В случае ошибки
+        return 1
     fi
+
+    case "$layout" in
+        "us")
+            echo "EN"
+            ;;
+        "ru")
+            echo "RU"
+            ;;
+        "de")
+            echo "DE"
+            ;;
+        "fr")
+            echo "FR"
+            ;;
+        *)
+            echo "$layout"  # Отображение оригинального кода, если нет описания
+            ;;
+    esac
 }
 
 # Запуск основного цикла
