@@ -2,6 +2,6 @@ border_width=1
 
 margin=4
 
-default_border_color="#bd93f9"        
-focused_border_color="#ff79c6"       
-floating_border_color="#50fa7b" 
+default_border_color="#cccccc"       # Светло-серый цвет
+focused_border_color="#aaaaaa"       # Нейтрально-серый цвет
+floating_border_color="#888888"      # Темно-серый цвет
