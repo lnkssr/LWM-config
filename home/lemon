@@ -77,4 +77,4 @@ while true; do
     # Формирование минималистичного вывода
     echo -e "%{l} $workspace_output%{c}$datetime%{r}[$keyboard_layout] [$bitcoin] [$volume] "
     sleep 0.2  # Ожидание 200 мс перед обновлением
-done | lemonbar -g "1920x20+0+2" -B "$bg_color" -F "$fg_color" -f "$font"
+done | lemonbar -g "1910x20+5+2" -B "$bg_color" -F "$fg_color" -f "$font"
