@@ -128,8 +128,14 @@ ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
 if [ -f "$ALACRITTY_CONFIG" ]; then
   sed -i \
     -e "s/background = .*/background = \"$BG_COLOR\"/" \
-    -e "s/foreground = .*/foreground = \"$COLOR1\"/" \
-    -e "s/bright_foreground = .*/bright_foreground = \"$COLOR2\"/" \
+    -e "s/foreground = .*/foreground = \"$FG_COLOR\"/" \
+    -e "s/bright_foreground = .*/bright_foreground = \"$COLOR1\"/" \
+    -e "s/rad = .*/rad = \"$COLOR2\"/" \
+    -e "s/green = .*/green = \"$COLOR3\"/" \
+    -e "s/yellow = .*/yellow = \"$COLOR4\"/" \
+    -e "s/blue = .*/blue = \"$COLOR5\"/" \
+    -e "s/magenta = .*/magenta = \"$COLOR6\"/" \
+    -e "s/cyan = .*/cyan = \"$COLOR7\"/" \
     "$ALACRITTY_CONFIG"
   echo "Конфигурация Alacritty обновлена!"
 else
@@ -180,7 +186,7 @@ fi
 # Перезагрузка сервисов
 killall dunst
 dunst &
-pkill lemon
+killall lemon
 ./lemon &
 
 # Запуск Rofi с новой конфигурацией

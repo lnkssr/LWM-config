@@ -1,9 +1,9 @@
 #!/bin/bash
 
 font="JetBrains Mono"  # Минималистичный моноширинный шрифт
-bg_color="#000000"   # Фон панели (чёрный с 80% прозрачности)
-fg_color="#bfbfbf"     # Основной цвет текста (белый)
-highlight_color="#979797" # Цвет выделения фона для активного рабочего пространства
+bg_color="#192141"   # Фон панели (чёрный с 80% прозрачности)
+fg_color="#c5c7cf"     # Основной цвет текста (белый)
+highlight_color="#53689C" # Цвет выделения фона для активного рабочего пространства
 
 workspaces=(" 1 " " 2 " " 3 " " 4 " " 5 " " 6 " " 7 " " 8 " " 9 ")
 
@@ -77,4 +77,4 @@ while true; do
     # Формирование минималистичного вывода
     echo -e "%{l} $workspace_output%{c}$datetime%{r}[$keyboard_layout] [$bitcoin] [$volume] "
     sleep 0.2  # Ожидание 200 мс перед обновлением
-done | lemonbar -g "1920x20+0+0" -B "$bg_color" -F "$fg_color" -f "$font"
+done | lemonbar -g "1920x20+0+2" -B "$bg_color" -F "$fg_color" -f "$font"

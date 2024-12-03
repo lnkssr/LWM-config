@@ -74,6 +74,8 @@
     disable_cursor_reposition_on_resize: false,
     window_hiding_strategy: MoveOnly,
     keybind: [
+        (command: Execute, value: "firefox", modifier: ["modkey", "Shift"], key: "f"),
+	    (command: Execute, value: "telegram-desktop", modifier: ["modkey", "Shift"], key: "t"),
         (command: Execute, value: "./vol up 5", key: "XF86AudioRaiseVolume"),
         (command: Execute, value: "./vol down 5", key: "XF86AudioLowerVolume"),
         (command: Execute, value: "./brth +5%", modifier: ["modkey"], key: "F6"),
