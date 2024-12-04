@@ -218,16 +218,16 @@
 ;foreground = '#f8f8f2'  # Светлый серый (основной цвет)
 
 # Включение градиента для более красивой визуализации
-gradient = 1
+gradient = 10
 gradient_count = 8
-gradient_color_1 = '#bd93f9'  # Светло-фиолетовый
-gradient_color_2 = '#ff79c6'  # Розовый
-gradient_color_3 = '#ffb86c'  # Оранжевый
-gradient_color_4 = '#f1fa8c'  # Желтый
-gradient_color_5 = '#50fa7b'  # Зелёный
-gradient_color_6 = '#8be9fd'  # Голубой
-gradient_color_7 = '#6272a4'  # Тёмно-фиолетовый
-gradient_color_8 = '#44475a'  # Тёмно-серый
+gradient_color_1 = '#6B5C65'
+gradient_color_2 = '#526374'
+gradient_color_3 = '#9A5E53'
+gradient_color_4 = '#CE6C55'
+gradient_color_5 = '#E4966E'
+gradient_color_6 = '#526B81'
+gradient_color_7 = '#c9c7c8'
+gradient_color_8 = '#7c6570'
 
 
 

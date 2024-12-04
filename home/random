@@ -81,42 +81,42 @@ EOL
 # Обновление файлов конфигурации
 echo "Обновление конфигурационных файлов..."
 
-CONFIGS=(
-  "$HOME/.config/leftwm/themes/current/theme.toml"      # LeftWM конфиг
-  "$HOME/.config/leftwm/themes/current/nord.rasi"       # Rofi конфиг (nord.rasi)
-  "$HOME/.config/leftwm/themes/current/dunstrc.tmpl"    # Dunst конфиг
-  "$HOME/lemon"                                         # Lemonbar конфиг
-  "$HOME/.config/alacritty/alacritty.toml"
-)
+# CONFIGS=(
+#   "$HOME/.config/leftwm/themes/current/theme.toml"      # LeftWM конфиг
+#   "$HOME/.config/leftwm/themes/current/nord.rasi"       # Rofi конфиг (nord.rasi)
+#   "$HOME/.config/leftwm/themes/current/dunstrc.tmpl"    # Dunst конфиг
+#   "$HOME/lemon"                                         # Lemonbar конфиг
+#   "$HOME/.config/alacritty/alacritty.toml"
+# )
 
-# Функция для замены цветов в файле
-update_config() {
-  CONFIG_FILE=$1
-  if [ -f "$CONFIG_FILE" ]; then
-    sed -i \
-      -e "s/#BG_COLOR/$BG_COLOR/g" \
-      -e "s/#FG_COLOR/$FG_COLOR/g" \
-      -e "s/#COLOR1/$COLOR1/g" \
-      -e "s/#COLOR2/$COLOR2/g" \
-      -e "s/#COLOR3/$COLOR3/g" \
-      -e "s/#COLOR4/$COLOR4/g" \
-      -e "s/#COLOR5/$COLOR5/g" \
-      -e "s/#COLOR6/$COLOR6/g" \
-      -e "s/#COLOR7/$COLOR7/g" \
-      -e "s/#COLOR8/$COLOR8/g" \
-      -e "s/#COLOR9/$COLOR9/g" \
-      -e "s/#COLOR10/$COLOR10/g" \
-      -e "s/#COLOR11/$COLOR11/g" \
-      -e "s/#COLOR12/$COLOR12/g" \
-      -e "s/#COLOR13/$COLOR13/g" \
-      -e "s/#COLOR14/$COLOR14/g" \
-      -e "s/#COLOR15/$COLOR15/g" \
-      "$CONFIG_FILE"
-    echo "Обновлено: $CONFIG_FILE"
-  else
-    echo "Ошибка: Файл конфигурации $CONFIG_FILE не найден!"
-  fi
-}
+# # Функция для замены цветов в файле
+# update_config() {
+#   CONFIG_FILE=$1
+#   if [ -f "$CONFIG_FILE" ]; then
+#     sed -i \
+#       -e "s/#BG_COLOR/$BG_COLOR/g" \
+#       -e "s/#FG_COLOR/$FG_COLOR/g" \
+#       -e "s/#COLOR1/$COLOR1/g" \
+#       -e "s/#COLOR2/$COLOR2/g" \
+#       -e "s/#COLOR3/$COLOR3/g" \
+#       -e "s/#COLOR4/$COLOR4/g" \
+#       -e "s/#COLOR5/$COLOR5/g" \
+#       -e "s/#COLOR6/$COLOR6/g" \
+#       -e "s/#COLOR7/$COLOR7/g" \
+#       -e "s/#COLOR8/$COLOR8/g" \
+#       -e "s/#COLOR9/$COLOR9/g" \
+#       -e "s/#COLOR10/$COLOR10/g" \
+#       -e "s/#COLOR11/$COLOR11/g" \
+#       -e "s/#COLOR12/$COLOR12/g" \
+#       -e "s/#COLOR13/$COLOR13/g" \
+#       -e "s/#COLOR14/$COLOR14/g" \
+#       -e "s/#COLOR15/$COLOR15/g" \
+#       "$CONFIG_FILE"
+#     echo "Обновлено: $CONFIG_FILE"
+#   else
+#     echo "Ошибка: Файл конфигурации $CONFIG_FILE не найден!"
+#   fi
+# }
 
 # Обновление всех конфигураций
 for config in "${CONFIGS[@]}"; do
@@ -130,7 +130,7 @@ if [ -f "$ALACRITTY_CONFIG" ]; then
     -e "s/background = .*/background = \"$BG_COLOR\"/" \
     -e "s/foreground = .*/foreground = \"$FG_COLOR\"/" \
     -e "s/bright_foreground = .*/bright_foreground = \"$COLOR1\"/" \
-    -e "s/rad = .*/rad = \"$COLOR2\"/" \
+    -e "s/red = .*/red = \"$COLOR2\"/" \
     -e "s/green = .*/green = \"$COLOR3\"/" \
     -e "s/yellow = .*/yellow = \"$COLOR4\"/" \
     -e "s/blue = .*/blue = \"$COLOR5\"/" \
@@ -141,7 +141,23 @@ if [ -f "$ALACRITTY_CONFIG" ]; then
 else
   echo "Ошибка: Конфиг Alacritty не найден!"
 fi
-
+# обновление конфига cava 
+CAVA_CONFIG="$HOME/.config/cava/config"
+if [ -f "$CAVA_CONFIG" ]; then
+  sed -i \
+    -e "s/gradient_color_1 = .*/gradient_color_1 = \'$COLOR1\'/" \
+    -e "s/gradient_color_2 = .*/gradient_color_2 = \'$COLOR2\'/" \
+    -e "s/gradient_color_3 = .*/gradient_color_3 = \'$COLOR3\'/" \
+    -e "s/gradient_color_4 = .*/gradient_color_4 = \'$COLOR4\'/" \
+    -e "s/gradient_color_5 = .*/gradient_color_5 = \'$COLOR5\'/" \
+    -e "s/gradient_color_6 = .*/gradient_color_6 = \'$COLOR6\'/" \
+    -e "s/gradient_color_7 = .*/gradient_color_7 = \'$COLOR7\'/" \
+    -e "s/gradient_color_8 = .*/gradient_color_8 = \'$COLOR8\'/" \
+    "$CAVA_CONFIG"
+  echo "Конфигурация cava обновлена!"
+else
+  echo "Ошибка: Конфиг cava не найден!"
+fi
 
 
 # Обновление Rofi конфигурации с использованием цветов из wal
@@ -188,6 +204,8 @@ killall dunst
 dunst &
 killall lemon
 ./lemon &
+killall cava
+cava &
 
 # Запуск Rofi с новой конфигурацией
 # rofi -theme "$ROFI_CONFIG" &
