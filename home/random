@@ -89,7 +89,7 @@ echo "Обновление конфигурационных файлов..."
 #   "$HOME/.config/alacritty/alacritty.toml"
 # )
 
-# # Функция для замены цветов в файле
+# Пример функции для обновления скрипта
 # update_config() {
 #   CONFIG_FILE=$1
 #   if [ -f "$CONFIG_FILE" ]; then
@@ -118,11 +118,22 @@ echo "Обновление конфигурационных файлов..."
 #   fi
 # }
 
-# Обновление всех конфигураций
-for config in "${CONFIGS[@]}"; do
-  update_config "$config"
-done
+# # Обновление всех конфигураций
+# for config in "${CONFIGS[@]}"; do
+#   update_config "$config"
+# done
 
+DUNST_CONFIG="$HOME/.config/leftwm/themes/current/dunstrc.tmpl"
+if [ -f "$DUNST_CONFIG" ]; then 
+  sed -i \
+    -e "s/    background = .*/    background = \"$BG_COLOR\"/" \
+    -e "s/    foreground = .*/    foreground = \"$FG_COLOR\"/" \
+    -e "s/    frame_color = .*/    frame_color = \"$COLOR1\"/" \
+    "$DUNST_CONFIG"
+  echo "Конфигурация dunst обновлена!"
+else
+  echo "Ошибка: Конфиг dunst не найден!"
+fi
 
 ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
 if [ -f "$ALACRITTY_CONFIG" ]; then
@@ -158,7 +169,6 @@ if [ -f "$CAVA_CONFIG" ]; then
 else
   echo "Ошибка: Конфиг cava не найден!"
 fi
-
 
 # Обновление Rofi конфигурации с использованием цветов из wal
 ROFI_CONFIG="$HOME/.config/leftwm/themes/current/nord.rasi"
@@ -201,12 +211,13 @@ fi
 
 # Перезагрузка сервисов
 killall dunst
-dunst &
+dunst -conf .config/leftwm/themes/current/dunstrc.tmpl &
 killall lemon
 ./lemon &
 killall cava
 cava &
-
+killall picom
+picom --daemon --backend glx --vsync --config picom.conf &
 # Запуск Rofi с новой конфигурацией
 # rofi -theme "$ROFI_CONFIG" &
 
