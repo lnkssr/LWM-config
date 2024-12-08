@@ -1,0 +1,8 @@
+background = #%% background.hex %%
+background-alt = #%% color2.hex %%
+foreground = #%% foreground.hex %%
+foreground-alt = #%% color6.hex %%
+primary = #%% color15.hex %%
+secondary = #%% color6.hex %%
+alert = #%% color13.hex %%
+disabled = #%% color9.hex %%

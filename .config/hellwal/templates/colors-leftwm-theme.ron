@@ -1,0 +1,9 @@
+#![enable(implicit_some)]
+(
+    border_width: 2,
+    margin: [4, 4],
+    default_border_color: "#%% color0.hex %%",
+    floating_border_color: "#%% color1.hex %%",
+    focused_border_color: "#%% color2.hex %%",
+    background_color: "#%% background.hex %%",
+)

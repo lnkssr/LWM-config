@@ -25,10 +25,10 @@ echo "Установлены обои: $RANDOM_WALLPAPER"
 
 # Генерация цветов
 echo "Генерация цветовой схемы..."
-wal -i "$RANDOM_WALLPAPER"
+hellwal -i "$RANDOM_WALLPAPER"
 
 # Получение цветов
-COLORS_FILE="$HOME/.cache/wal/colors.json"
+COLORS_FILE="$HOME/.cache/hellwal/colors.json"
 if [ ! -f "$COLORS_FILE" ]; then
   echo "Error: Не удалось найти файл с цветами ($COLORS_FILE)!"
   exit 1
@@ -81,48 +81,6 @@ EOL
 # Обновление файлов конфигурации
 echo "Обновление конфигурационных файлов..."
 
-# CONFIGS=(
-#   "$HOME/.config/leftwm/themes/current/theme.toml"      # LeftWM конфиг
-#   "$HOME/.config/leftwm/themes/current/nord.rasi"       # Rofi конфиг (nord.rasi)
-#   "$HOME/.config/leftwm/themes/current/dunstrc.tmpl"    # Dunst конфиг
-#   "$HOME/lemon"                                         # Lemonbar конфиг
-#   "$HOME/.config/alacritty/alacritty.toml"
-# )
-
-# Пример функции для обновления скрипта
-# update_config() {
-#   CONFIG_FILE=$1
-#   if [ -f "$CONFIG_FILE" ]; then
-#     sed -i \
-#       -e "s/#BG_COLOR/$BG_COLOR/g" \
-#       -e "s/#FG_COLOR/$FG_COLOR/g" \
-#       -e "s/#COLOR1/$COLOR1/g" \
-#       -e "s/#COLOR2/$COLOR2/g" \
-#       -e "s/#COLOR3/$COLOR3/g" \
-#       -e "s/#COLOR4/$COLOR4/g" \
-#       -e "s/#COLOR5/$COLOR5/g" \
-#       -e "s/#COLOR6/$COLOR6/g" \
-#       -e "s/#COLOR7/$COLOR7/g" \
-#       -e "s/#COLOR8/$COLOR8/g" \
-#       -e "s/#COLOR9/$COLOR9/g" \
-#       -e "s/#COLOR10/$COLOR10/g" \
-#       -e "s/#COLOR11/$COLOR11/g" \
-#       -e "s/#COLOR12/$COLOR12/g" \
-#       -e "s/#COLOR13/$COLOR13/g" \
-#       -e "s/#COLOR14/$COLOR14/g" \
-#       -e "s/#COLOR15/$COLOR15/g" \
-#       "$CONFIG_FILE"
-#     echo "Обновлено: $CONFIG_FILE"
-#   else
-#     echo "Ошибка: Файл конфигурации $CONFIG_FILE не найден!"
-#   fi
-# }
-
-# # Обновление всех конфигураций
-# for config in "${CONFIGS[@]}"; do
-#   update_config "$config"
-# done
-
 DUNST_CONFIG="$HOME/.config/leftwm/themes/current/dunstrc.tmpl"
 if [ -f "$DUNST_CONFIG" ]; then 
   sed -i \
@@ -135,24 +93,6 @@ else
   echo "Ошибка: Конфиг dunst не найден!"
 fi
 
-ALACRITTY_CONFIG="$HOME/.config/alacritty/alacritty.toml"
-if [ -f "$ALACRITTY_CONFIG" ]; then
-  sed -i \
-    -e "s/background = .*/background = \"$BG_COLOR\"/" \
-    -e "s/foreground = .*/foreground = \"$FG_COLOR\"/" \
-    -e "s/bright_foreground = .*/bright_foreground = \"$COLOR1\"/" \
-    -e "s/red = .*/red = \"$COLOR2\"/" \
-    -e "s/green = .*/green = \"$COLOR3\"/" \
-    -e "s/yellow = .*/yellow = \"$COLOR4\"/" \
-    -e "s/blue = .*/blue = \"$COLOR5\"/" \
-    -e "s/magenta = .*/magenta = \"$COLOR6\"/" \
-    -e "s/cyan = .*/cyan = \"$COLOR7\"/" \
-    "$ALACRITTY_CONFIG"
-  echo "Конфигурация Alacritty обновлена!"
-else
-  echo "Ошибка: Конфиг Alacritty не найден!"
-fi
-# обновление конфига cava 
 CAVA_CONFIG="$HOME/.config/cava/config"
 if [ -f "$CAVA_CONFIG" ]; then
   sed -i \
@@ -168,32 +108,6 @@ if [ -f "$CAVA_CONFIG" ]; then
   echo "Конфигурация cava обновлена!"
 else
   echo "Ошибка: Конфиг cava не найден!"
-fi
-
-# Обновление Rofi конфигурации с использованием цветов из wal
-ROFI_CONFIG="$HOME/.config/leftwm/themes/current/nord.rasi"
-if [ -f "$ROFI_CONFIG" ]; then
-  sed -i \
-    -e "s/nord0:.*/nord0: $BG_COLOR;/g" \
-    -e "s/nord1:.*/nord1: $COLOR1;/g" \
-    -e "s/nord2:.*/nord2: $COLOR2;/g" \
-    -e "s/nord3:.*/nord3: $COLOR3;/g" \
-    -e "s/nord4:.*/nord4: $FG_COLOR;/g" \
-    -e "s/nord5:.*/nord5: $COLOR5;/g" \
-    -e "s/nord6:.*/nord6: $COLOR6;/g" \
-    -e "s/nord7:.*/nord7: $COLOR7;/g" \
-    -e "s/nord8:.*/nord8: $COLOR8;/g" \
-    -e "s/nord9:.*/nord9: $COLOR9;/g" \
-    -e "s/nord10:.*/nord10: $COLOR10;/g" \
-    -e "s/nord11:.*/nord11: $COLOR11;/g" \
-    -e "s/nord12:.*/nord12: $COLOR12;/g" \
-    -e "s/nord13:.*/nord13: $COLOR13;/g" \
-    -e "s/nord14:.*/nord14: $COLOR14;/g" \
-    -e "s/nord15:.*/nord15: $COLOR15;/g" \
-    "$ROFI_CONFIG"
-  echo "Rofi конфигурация обновлена!"
-else
-  echo "Ошибка: Конфиг Rofi не найден!"
 fi
 
 # Обновление Lemonbar конфигурации
@@ -212,12 +126,16 @@ fi
 # Перезагрузка сервисов
 killall dunst
 dunst -conf .config/leftwm/themes/current/dunstrc.tmpl &
-killall lemon
-./lemon &
+# killall lemon
+# ./lemon &
 killall cava
 cava &
-killall picom
-picom --daemon --backend glx --vsync --config picom.conf &
+
+killall polybar
+polybar &
+
+# killall picom
+# picom --daemon --backend glx --vsync --config picom.conf &
 # Запуск Rofi с новой конфигурацией
 # rofi -theme "$ROFI_CONFIG" &
 
