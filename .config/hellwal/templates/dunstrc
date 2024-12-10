@@ -1,0 +1,18 @@
+[urgency_low]
+    background = "#%% background.hex %%"
+    foreground = "#%% foreground.hex %%"
+    frame_color = "#%% color5.hex %%"
+    timeout = 5
+
+[urgency_normal]
+    background = "#%% background.hex %%"
+    foreground = "#%% foreground.hex %%"
+    frame_color = "#%% color5.hex %%"
+    timeout = 5
+
+[urgency_critical]
+    background = "#%% background.hex %%"
+    foreground = "#%% foreground.hex %%"
+    frame_color = "#%% color5.hex %%"
+    timeout = 10
+    
