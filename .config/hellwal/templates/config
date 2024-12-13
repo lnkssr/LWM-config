@@ -111,7 +111,7 @@
 ;foreground = '#f8f8f2'  # Светлый серый (основной цвет)
 
 gradient = 1
-gradient_count = 0
+gradient_count = 8
 gradient_color_1 = '#%% color0.hex %%'
 gradient_color_2 = '#%% color1.hex %%'
 gradient_color_3 = '#%% color2.hex %%'
