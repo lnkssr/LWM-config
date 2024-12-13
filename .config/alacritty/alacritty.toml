@@ -2,7 +2,7 @@
 import = ["~/.cache/hellwal/colors-alacritty.toml"]
 live_config_reload = true
 [font]
-size = 13.0
+size = 11.0
 
 [font.bold]
 family = "JetBrains Mono"

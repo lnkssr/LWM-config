@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Папка с обоями
 WALLPAPER_DIR="/home/filla/wallpapers/wallpapers"

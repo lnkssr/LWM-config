@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [[ $1 == "up" ]]; then
   pamixer --increase ${2:-5}
