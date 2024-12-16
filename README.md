@@ -52,7 +52,7 @@ chmod +x install.sh
 
 Here’s a screenshot of the configured desktop environment:
 
-![Desktop Preview](assets/screen1.png)
+![Desktop Preview](assets/screen.gif)
 
 ---
 
