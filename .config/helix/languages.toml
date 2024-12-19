@@ -1,0 +1,19 @@
+# ~/.config/helix/languages.toml
+
+# Language server configuration
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+# Rust language configuration
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+
+# Python language configuration
+[[language]]
+name = "python"
+language-servers = ["pyright"]
